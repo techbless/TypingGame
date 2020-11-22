@@ -1,3 +1,4 @@
+import java.awt.Font;
 import java.awt.GridLayout;
 
 import javax.swing.JLabel;
@@ -5,21 +6,17 @@ import javax.swing.JPanel;
 
 public class SpeedPanel extends JPanel {
 	public SpeedPanel() {
-		GridLayout grid = new GridLayout();
+		GridLayout grid = new GridLayout(2, 1);
 		setLayout(grid);
 		
-		JLabel wpmLabel = new JLabel("WPM : ");
-		JLabel accuracyLabel = new JLabel("WPM : ");
 		
-		JLabel wpm = new JLabel("100", JLabel.CENTER);
-		JLabel accuracy = new JLabel("100%", JLabel.CENTER);
+		JLabel wpmLabel = new JLabel("WPM : 80", JLabel.CENTER);
+		JLabel accuracyLabel = new JLabel("ACCURACY : 99%", JLabel.CENTER);
 		
-		wpmLabel.setHorizontalAlignment(JLabel.RIGHT);
-		accuracyLabel.setHorizontalAlignment(JLabel.RIGHT);
+		wpmLabel.setFont(new Font("Consolas", Font.PLAIN, 20));
+		accuracyLabel.setFont(new Font("Consolas", Font.PLAIN, 20));
 		
 		add(wpmLabel);
-		add(wpm);
 		add(accuracyLabel);
-		add(accuracy);
 	}
 }
