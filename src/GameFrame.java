@@ -18,7 +18,7 @@ public class GameFrame extends JFrame {
 	private EditPanel editPanel = new EditPanel();
 
 	public GameFrame() {
-		setTitle("타이핑 게임");
+		setTitle("Typing Game");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(1024, 768);
 		
