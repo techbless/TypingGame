@@ -19,7 +19,7 @@ public class EditPanel extends JPanel {
 	public EditPanel() {
 		setLayout(new BorderLayout());
 		
-		wordSource = new WordSource();
+		wordSource = WordSource.getInstance();
 		words = new JList<String>(wordSource.getWords());
 		JScrollPane list = new JScrollPane(words);
 		list.setPreferredSize(new Dimension(200, 300));
@@ -34,7 +34,7 @@ public class EditPanel extends JPanel {
 			public void valueChanged(ListSelectionEvent e) {
 				JList<String> source = (JList<String>)e.getSource();
 				
-				// æ»«œ∏È ø°∑ØµÎ
+				// ÏïàÌïòÎ©¥ ÏóêÎü¨Îú∏
 				if(source.getValueIsAdjusting()) {
 					input.setText(source.getSelectedValue().toString());
 				}
@@ -48,7 +48,7 @@ public class EditPanel extends JPanel {
 			input = new JTextField(12);
 			add(input);			
 			
-			JButton btn = new JButton("√ﬂ∞°,ªË¡¶");
+			JButton btn = new JButton("Ï∂îÍ∞Ä/ÏÇ≠Ï†ú");
 			btn.setPreferredSize(new Dimension(90, input.getPreferredSize().height));
 			add(btn);
 			

@@ -7,11 +7,17 @@ import java.util.Scanner;
 import java.util.Vector;
 
 public class WordSource {
+	private static WordSource instance = new WordSource();
 	private Vector<String> words;
 	
-	public WordSource() {
+	// SingleTon
+	private WordSource() {
 		words = new Vector<String>(30000);
 		readFile();
+	}
+	
+	public static WordSource getInstance() {
+		return instance;
 	}
 	
 	public String getWord() {
