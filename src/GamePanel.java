@@ -1,9 +1,12 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
 
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -23,6 +26,7 @@ public class GamePanel extends JPanel {
 		add(new InputPanel(), BorderLayout.SOUTH);
 		
 		new Thread(new GameObjectGenerator()).start();
+		new Thread(new GameObjectMover()).start();
 	}
 	
 	
@@ -30,6 +34,13 @@ public class GamePanel extends JPanel {
 		public GameGroundPanel() {
 			setLayout(null);
 			setBackground(Color.DARK_GRAY);
+		}
+		
+		public void paintComponent(Graphics g) {
+			super.paintComponent(g);
+			ImageIcon icon = new ImageIcon("background.jpg");
+			Image img = icon.getImage();
+			g.drawImage(img, 0, 0, getWidth(), getHeight(), null);
 		}
 	}
 	
@@ -62,6 +73,34 @@ public class GamePanel extends JPanel {
 				}
 			});
 		}
+	}
+	
+	
+	class GameObjectMover implements Runnable {
+
+		@Override 
+		public void run() {
+			int count = 0;
+			while(true) {
+				count++;
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				
+				for(int i = 0; i < gameObjects.size(); i++) {
+					int deltaY = 0;
+					if(count % 3 == 0) {
+						deltaY = (int)(Math.random() * 2) * ((Math.random() > 0.5 ? 1 : -1));						
+					}
+					
+					GameObject targetObj = gameObjects.get(i);
+					targetObj.setLocation(targetObj.getX() + 1, targetObj.getY() + deltaY);
+				}
+			}
+		}
+		
 	}
 	
 	
