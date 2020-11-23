@@ -6,7 +6,6 @@ public abstract class GameObject extends JLabel {
 	public GameObject(String word, int x, int y) {
 		this.word = word;
 		draw(word, x, y);
-		
 	}
 	
 	abstract void draw(String word, int x, int y);
