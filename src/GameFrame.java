@@ -70,7 +70,19 @@ public class GameFrame extends JFrame {
 		mBar.add(fileMenu);
 		
 		startItem.addActionListener(new StartAction());
+		stopItem.addActionListener(new EndAction());
 	}
+	
+	
+	private class EndAction implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			gamePanel.endGame();
+		}
+		
+	}
+	
 	
 	private class StartAction implements ActionListener {
 		public void actionPerformed(ActionEvent e) {

@@ -13,9 +13,11 @@ import javax.swing.JTextField;
 
 public class GamePanel extends JPanel {
 	
-	GameGroundPanel gameGroundPanel = new GameGroundPanel();
-	WordSource wordSource;
-	Vector<GameObject> gameObjects;
+	private GameGroundPanel gameGroundPanel = new GameGroundPanel();
+	private Thread generator;
+	private Thread mover;
+	private WordSource wordSource;
+	private Vector<GameObject> gameObjects;
 	
 	
 	public GamePanel() {
@@ -23,14 +25,36 @@ public class GamePanel extends JPanel {
 		wordSource = WordSource.getInstance();
 
 		setLayout(new BorderLayout());
+		
 		add(gameGroundPanel, BorderLayout.CENTER);
 		add(new InputPanel(), BorderLayout.SOUTH);
-		
 	}
 	
-	public void startGame() {		
-		new Thread(new GameObjectGenerator()).start();
-		new Thread(new GameObjectMover()).start();
+	
+	public void startGame() {
+		generator = new Thread(new GameObjectGenerator());
+		mover = new Thread(new GameObjectMover());
+		
+		generator.start();
+		mover.start();
+	}
+	
+	
+	public void endGame() {
+		generator.interrupt();
+		mover.interrupt();
+		
+		
+		// Remove gameObjects from panel.
+		for(int i = 0; i < gameObjects.size(); i++) {			
+			gameGroundPanel.remove(gameObjects.get(i));
+		}
+		
+		gameGroundPanel.revalidate();
+		gameGroundPanel.repaint();
+		
+		// Clear container.
+		gameObjects.clear();
 	}
 	
 	
@@ -108,7 +132,7 @@ public class GamePanel extends JPanel {
 				try {
 					Thread.sleep(100);
 				} catch (InterruptedException e) {
-					e.printStackTrace();
+					return;
 				}
 			}
 		}
@@ -129,7 +153,7 @@ public class GamePanel extends JPanel {
 				try {
 					Thread.sleep(5000);
 				} catch (InterruptedException e) {
-					e.printStackTrace();
+					return;
 				}
 			}
 		}
