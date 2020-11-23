@@ -74,7 +74,7 @@ public class GameFrame extends JFrame {
 	
 	private class StartAction implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			System.out.println("hello");
+			gamePanel.startGame();
 		}
 	}
 }

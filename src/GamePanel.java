@@ -26,6 +26,9 @@ public class GamePanel extends JPanel {
 		add(gameGroundPanel, BorderLayout.CENTER);
 		add(new InputPanel(), BorderLayout.SOUTH);
 		
+	}
+	
+	public void startGame() {		
 		new Thread(new GameObjectGenerator()).start();
 		new Thread(new GameObjectMover()).start();
 	}
