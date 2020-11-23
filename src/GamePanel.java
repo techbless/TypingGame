@@ -147,18 +147,26 @@ public class GamePanel extends JPanel {
 	class GameObjectGenerator implements Runnable {
 		@Override
 		public void run() {
-			int i = 0;
+			int i = 1;
 			while(true) {
-				Ghost newObject = new Ghost(wordSource.getWord(), 0, (int)(Math.random()*600));
+				GameObject newObject;
+				if(i % 5 == 0) {
+					newObject = new Toy(wordSource.getWord(), 0, (int)(Math.random()*600));
+				}
+				else {
+					newObject = new Ghost(wordSource.getWord(), 0, (int)(Math.random()*600));
+				}
 				gameObjects.add(newObject);
 				gameGroundPanel.add(newObject);
 				gameGroundPanel.repaint();
 								
 				try {
-					Thread.sleep(5000);
+					Thread.sleep(1000);
 				} catch (InterruptedException e) {
 					return;
 				}
+				
+				i++;
 			}
 		}
 	}
