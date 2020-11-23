@@ -18,6 +18,7 @@ public class GamePanel extends JPanel {
 	private Thread mover;
 	private WordSource wordSource;
 	private Vector<GameObject> gameObjects;
+	Baby baby;
 	
 	
 	public GamePanel() {
@@ -32,6 +33,18 @@ public class GamePanel extends JPanel {
 	
 	
 	public void startGame() {
+
+		// Remove gameObjects from panel.
+		for(int i = 0; i < gameObjects.size(); i++) {			
+			gameGroundPanel.remove(gameObjects.get(i));
+		}
+		
+		gameGroundPanel.revalidate();
+		gameGroundPanel.repaint();
+		
+		// Clear container.
+		gameObjects.clear();
+
 		generator = new Thread(new GameObjectGenerator());
 		mover = new Thread(new GameObjectMover());
 		
@@ -43,18 +56,6 @@ public class GamePanel extends JPanel {
 	public void endGame() {
 		generator.interrupt();
 		mover.interrupt();
-		
-		
-		// Remove gameObjects from panel.
-		for(int i = 0; i < gameObjects.size(); i++) {			
-			gameGroundPanel.remove(gameObjects.get(i));
-		}
-		
-		gameGroundPanel.revalidate();
-		gameGroundPanel.repaint();
-		
-		// Clear container.
-		gameObjects.clear();
 	}
 	
 	
@@ -63,7 +64,7 @@ public class GamePanel extends JPanel {
 			setLayout(null);
 			setBackground(Color.DARK_GRAY);
 			
-			Baby baby = new Baby(950, 430);
+			baby = new Baby(950, 430);
 			add(baby);
 		}
 		
@@ -121,15 +122,19 @@ public class GamePanel extends JPanel {
 				for(int i = 0; i < gameObjects.size(); i++) {
 					int deltaY = 0;
 					if(count % 3 == 0) {
-						deltaY = (int)(Math.random() * 2) * ((Math.random() > 0.5 ? 1 : -1));						
+						deltaY = (int)(Math.random() * 5) * ((Math.random() > 0.5 ? 1 : -1));
 					}
 					
 					GameObject targetObj = gameObjects.get(i);
 					targetObj.setLocation(targetObj.getX() + 1, targetObj.getY() + deltaY);
+					
+					if(baby.isTouched(targetObj)) {
+						endGame();
+					}
 				}
 				
 				try {
-					Thread.sleep(100);
+					Thread.sleep(50);
 				} catch (InterruptedException e) {
 					return;
 				}

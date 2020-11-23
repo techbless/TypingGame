@@ -27,5 +27,10 @@ public class Baby extends GameObject {
 		setSize(150, 170);
 		setOpaque(false);
 	}
+	
+	
+	public boolean isTouched(GameObject gameObject) {		
+		return (gameObject.getX() == this.getX());
+	}
 
 }
