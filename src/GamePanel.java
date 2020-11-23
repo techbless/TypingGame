@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -34,13 +35,17 @@ public class GamePanel extends JPanel {
 		public GameGroundPanel() {
 			setLayout(null);
 			setBackground(Color.DARK_GRAY);
+			
+			ImageIcon icon = new ImageIcon("resources/img/baby.png");
+			JLabel babyIcon = new JLabel(icon);
+			add(babyIcon);
 		}
 		
 		
 		// Set the background of game ground.
 		public void paintComponent(Graphics g) {
 			super.paintComponent(g);
-			ImageIcon icon = new ImageIcon("background.jpg");
+			ImageIcon icon = new ImageIcon("resources/img/background.jpg");
 			Image img = icon.getImage();
 			g.drawImage(img, 0, 0, getWidth(), getHeight(), null);
 		}

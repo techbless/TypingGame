@@ -58,7 +58,7 @@ public class WordSource {
 		}
 		
 		try {
-			FileWriter fw = new FileWriter(new File("words.txt"));
+			FileWriter fw = new FileWriter(new File("resources/words.txt"));
 			fw.write(sb.toString());
 			fw.close();
 		} catch (IOException e) {
@@ -71,7 +71,7 @@ public class WordSource {
 	
 	private void addWord(String word) {
 		try {
-			FileWriter fw = new FileWriter(new File("words.txt"), true);
+			FileWriter fw = new FileWriter(new File("resources/words.txt"), true);
 			fw.write(word + "\n");
 			fw.close();
 		} catch (IOException e) {
@@ -84,7 +84,7 @@ public class WordSource {
 	
 	private void readFile() {
 		try {
-			Scanner fsc = new Scanner(new FileReader("words.txt"));
+			Scanner fsc = new Scanner(new FileReader("resources/words.txt"));
 			
 			while(fsc.hasNext()) {
 				String word = fsc.nextLine();
