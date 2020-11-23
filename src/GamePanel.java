@@ -129,7 +129,12 @@ public class GamePanel extends JPanel {
 					targetObj.setLocation(targetObj.getX() + 1, targetObj.getY() + deltaY);
 					
 					if(baby.isTouched(targetObj)) {
-						endGame();
+						if(targetObj instanceof Ghost) {
+							endGame();							
+						}
+						else if(targetObj instanceof Toy) {
+							gameGroundPanel.remove(targetObj);
+						}
 					}
 				}
 				
@@ -161,7 +166,7 @@ public class GamePanel extends JPanel {
 				gameGroundPanel.repaint();
 								
 				try {
-					Thread.sleep(1000);
+					Thread.sleep(3500);
 				} catch (InterruptedException e) {
 					return;
 				}
