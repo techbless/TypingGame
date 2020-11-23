@@ -20,7 +20,7 @@ public class GameFrame extends JFrame {
 	public GameFrame() {
 		setTitle("Typing Game");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(1024, 768);
+		setSize(1366, 768);
 		
 		splitPane();
 		makeMenu();
@@ -33,7 +33,7 @@ public class GameFrame extends JFrame {
 		getContentPane().add(hPane, BorderLayout.CENTER);
 		
 		hPane.setOrientation(JSplitPane.HORIZONTAL_SPLIT);
-		hPane.setDividerLocation(780);
+		hPane.setDividerLocation(1120);
 		hPane.setEnabled(false);
 		hPane.setLeftComponent(gamePanel);
 		hPane.setDividerSize(1);

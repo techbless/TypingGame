@@ -36,6 +36,8 @@ public class GamePanel extends JPanel {
 			setBackground(Color.DARK_GRAY);
 		}
 		
+		
+		// Set the background of game ground.
 		public void paintComponent(Graphics g) {
 			super.paintComponent(g);
 			ImageIcon icon = new ImageIcon("background.jpg");
@@ -47,7 +49,7 @@ public class GamePanel extends JPanel {
 	
 	class InputPanel extends JPanel {
 		public InputPanel() {
-			setBackground(Color.GRAY);
+			setBackground(Color.DARK_GRAY);
 			JTextField inputField = new JTextField(40);
 			add(inputField);
 			
@@ -65,6 +67,7 @@ public class GamePanel extends JPanel {
 							gameGroundPanel.revalidate();
 							gameGroundPanel.repaint();
 							gameObjects.remove(i);
+							
 							System.out.println("Answer : " + inWord);
 						}
 					}
@@ -83,11 +86,6 @@ public class GamePanel extends JPanel {
 			int count = 0;
 			while(true) {
 				count++;
-				try {
-					Thread.sleep(100);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
 				
 				for(int i = 0; i < gameObjects.size(); i++) {
 					int deltaY = 0;
@@ -97,6 +95,12 @@ public class GamePanel extends JPanel {
 					
 					GameObject targetObj = gameObjects.get(i);
 					targetObj.setLocation(targetObj.getX() + 1, targetObj.getY() + deltaY);
+				}
+				
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
 				}
 			}
 		}
