@@ -13,7 +13,7 @@ public class Ghost extends GameObject {
 
 	@Override
 	void draw(String word, int x, int y) {
-		ImageIcon imageIcon = new ImageIcon("resources/img/ghost.png");
+		ImageIcon imageIcon = new ImageIcon(this.getClass().getResource("img/ghost.png"));
 		Image image = imageIcon.getImage();
 		Image newImage = image.getScaledInstance(70, 70, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(newImage);

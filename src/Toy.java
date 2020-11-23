@@ -13,7 +13,7 @@ public class Toy extends GameObject {
 
 	@Override
 	void draw(String word, int x, int y) {
-		ImageIcon imageIcon = new ImageIcon("resources/img/toy.png");
+		ImageIcon imageIcon = new ImageIcon(this.getClass().getResource("img/toy.png"));
 		Image image = imageIcon.getImage();
 		Image newImage = image.getScaledInstance(68, 50, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(newImage);

@@ -1,4 +1,5 @@
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,6 +24,7 @@ public class EditPanel extends JPanel {
 		words = new JList<String>(wordSource.getWords());
 		JScrollPane list = new JScrollPane(words);
 		list.setPreferredSize(new Dimension(200, 300));
+		words.setBackground(Color.GRAY);
 		add(list, BorderLayout.CENTER);
 		
 		add(new InputPanel(), BorderLayout.SOUTH);
@@ -45,6 +47,7 @@ public class EditPanel extends JPanel {
 	
 	class InputPanel extends JPanel {
 		public InputPanel() {
+			setBackground(Color.DARK_GRAY);
 			input = new JTextField(12);
 			add(input);			
 			

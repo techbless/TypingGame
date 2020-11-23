@@ -72,7 +72,7 @@ public class GamePanel extends JPanel {
 		// Set the background of game ground.
 		public void paintComponent(Graphics g) {
 			super.paintComponent(g);
-			ImageIcon icon = new ImageIcon("resources/img/background.jpg");
+			ImageIcon icon = new ImageIcon(this.getClass().getResource("img/background.jpg"));
 			Image img = icon.getImage();
 			g.drawImage(img, 0, 0, getWidth(), getHeight(), null);
 		}

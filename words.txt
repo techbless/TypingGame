@@ -1,14 +1,11 @@
-abandon
 abase
 abash
 abbey
 abbot
-Abbott
 abdicate
 abdomen
 Abelson
 Aberdeen
-aberrant
 aberrate
 abetted
 abeyance
@@ -18,8 +15,6 @@ abhorrent
 abide
 Abidjan
 Abigail
-abject
-ablate
 ablaze
 able
 ablution
@@ -260,7 +255,6 @@ adhesive
 adiabatic
 adieu
 adipic
-Adirondack
 adjacent
 adject
 adjectival
