@@ -63,9 +63,8 @@ public class GamePanel extends JPanel {
 			setLayout(null);
 			setBackground(Color.DARK_GRAY);
 			
-			ImageIcon icon = new ImageIcon("resources/img/baby.png");
-			JLabel babyIcon = new JLabel(icon);
-			add(babyIcon);
+			Baby baby = new Baby(950, 430);
+			add(baby);
 		}
 		
 		
