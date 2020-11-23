@@ -4,10 +4,11 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -18,10 +19,13 @@ public class GamePanel extends JPanel {
 	private Thread mover;
 	private WordSource wordSource;
 	private Vector<GameObject> gameObjects;
-	Baby baby;
+	private EvaluationUpdater evaluationUpdater;
+	private Baby baby;
 	
 	
-	public GamePanel() {
+	public GamePanel(EvaluationUpdater evaluationUpdater) {
+		this.evaluationUpdater = evaluationUpdater;
+		
 		gameObjects = new Vector<GameObject>(30);
 		wordSource = WordSource.getInstance();
 
@@ -29,6 +33,8 @@ public class GamePanel extends JPanel {
 		
 		add(gameGroundPanel, BorderLayout.CENTER);
 		add(new InputPanel(), BorderLayout.SOUTH);
+		
+		
 	}
 	
 	
@@ -50,12 +56,14 @@ public class GamePanel extends JPanel {
 		
 		generator.start();
 		mover.start();
+		evaluationUpdater.start();
 	}
 	
 	
 	public void endGame() {
 		generator.interrupt();
 		mover.interrupt();
+		evaluationUpdater.end();
 	}
 	
 	
@@ -85,6 +93,16 @@ public class GamePanel extends JPanel {
 			JTextField inputField = new JTextField(40);
 			add(inputField);
 			
+			inputField.addKeyListener(new KeyAdapter() {
+
+				@Override
+				public void keyPressed(KeyEvent e) {
+					char keyChar = e.getKeyChar();
+					evaluationUpdater.appendDummy(keyChar);
+				}
+				
+			});
+			
 			inputField.addActionListener(new ActionListener() {
 
 				@Override
@@ -92,16 +110,24 @@ public class GamePanel extends JPanel {
 					JTextField tField = (JTextField)(e.getSource());
 					String inWord = tField.getText();
 					
+					boolean isFoundAnswer = false;
 					for(int i = 0; i < gameObjects.size(); i++) {
 						GameObject targetObj = gameObjects.get(i);
 						if(targetObj.getWord().equals(inWord)) {
+							isFoundAnswer = true;
+							
 							gameGroundPanel.remove(targetObj);
 							gameGroundPanel.revalidate();
 							gameGroundPanel.repaint();
 							gameObjects.remove(i);
 							
+							evaluationUpdater.increaseAccuracy();
 							System.out.println("Answer : " + inWord);
 						}
+					}
+					
+					if(!isFoundAnswer) {
+						evaluationUpdater.decreaseAccuracy();
 					}
 					
 					inputField.setText("");

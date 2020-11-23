@@ -12,12 +12,15 @@ public class GameFrame extends JFrame {
 	private JMenuItem startItem = new JMenuItem("start");
 	private JMenuItem stopItem = new JMenuItem("stop");
 	
-	private GamePanel gamePanel = new GamePanel();
+	private GamePanel gamePanel;
 	private ScorePanel scorePanel = new ScorePanel();
 	private SpeedPanel speedPanel = new SpeedPanel();
 	private EditPanel editPanel = new EditPanel();
 
 	public GameFrame() {
+		EvaluationUpdater evaluationUpdater = new EvaluationUpdater(speedPanel, scorePanel);
+		gamePanel = new GamePanel(evaluationUpdater);
+
 		setTitle("Typing Game");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(1366, 768);
