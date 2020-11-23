@@ -25,7 +25,6 @@ public class Ghost extends GameObject {
 		
 		setForeground(Color.WHITE);
 		setLocation(x, y);
-		setBackground(Color.YELLOW);
 		setSize(100, 90);
 		setOpaque(false);
 	}
