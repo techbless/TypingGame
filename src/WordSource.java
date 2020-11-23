@@ -16,29 +16,32 @@ public class WordSource {
 		readFile();
 	}
 	
+	
 	public static WordSource getInstance() {
 		return instance;
 	}
+	
 	
 	public String getWord() {
 		int index = (int)(Math.random()*words.size());
 		return words.get(index);
 	}
 	
+	
 	public Vector<String> getWords() {
 		return words;
 	}
 	
+	
 	public void update(String word) {
 		if(words.contains(word)) {
 			removeWord(word);
-			words.remove(word);
 		}
 		else {
 			addWord(word);
-			words.add(word);
 		}
 	}
+	
 	
 	private void removeWord(String word) {
 		StringBuffer sb = new StringBuffer("");
@@ -61,7 +64,10 @@ public class WordSource {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		words.remove(word);
 	}
+	
 	
 	private void addWord(String word) {
 		try {
@@ -71,7 +77,10 @@ public class WordSource {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		words.add(word);
 	}
+	
 	
 	private void readFile() {
 		try {
