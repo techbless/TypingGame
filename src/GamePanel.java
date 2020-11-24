@@ -60,6 +60,9 @@ public class GamePanel extends JPanel {
 		generator.start();
 		mover.start();
 		evaluationUpdater.start();
+		
+		nLife = 3;
+		evaluationUpdater.setLife(nLife);
 	}
 	
 	
@@ -159,6 +162,10 @@ public class GamePanel extends JPanel {
 	
 	
 	class GameObjectMover implements Runnable {
+		
+		private boolean isInSafeArea(GameObject obj, int y) {
+			return (gameGroundPanel.getHeight() >= y + obj.getHeight() && y >= 0);
+		}
 
 		@Override 
 		public void run() {
@@ -168,12 +175,18 @@ public class GamePanel extends JPanel {
 				
 				for(int i = 0; i < gameObjects.size(); i++) {
 					int deltaY = 0;
-					if(count % 10 == 0) {
-						deltaY = (int)(Math.random() * 5) * ((Math.random() > 0.5 ? 1 : -1));
+					if(count % 5 == 0) {
+						deltaY = (int)(Math.random() * 3 + 2) * ((Math.random() > 0.5 ? 1 : -1));
 					}
 					
 					GameObject targetObj = gameObjects.get(i);
-					targetObj.setLocation(targetObj.getX() + 1, targetObj.getY() + deltaY);
+					int beforeY = targetObj.getY();
+					
+					// Check if new location is in safe area or not.
+					if(!isInSafeArea(targetObj, beforeY + deltaY)) {
+						deltaY = 0; // if not, don't move to Y direction.
+					}
+					targetObj.setLocation(targetObj.getX() + 1, targetObj.getY() + deltaY);						
 					
 					if(baby.isTouched(targetObj)) {
 						if(targetObj instanceof Ghost) {
@@ -184,12 +197,21 @@ public class GamePanel extends JPanel {
 								endGame();															
 							}
 						}
+						
 						gameGroundPanel.remove(targetObj);
+						gameObjects.remove(i);
 					}
 				}
 				
+				int delay = 30;
+				if(score >= 65) {delay = 30; }
+				else if(score >= 45) { delay = 35; }
+				else if(score >= 30) { delay = 40; }
+				else if(score >= 15) { delay = 45; }
+				
 				try {
-					Thread.sleep(50);
+					Thread.sleep(delay);
+					
 				} catch (InterruptedException e) {
 					return;
 				}
@@ -200,21 +222,21 @@ public class GamePanel extends JPanel {
 	
 	
 	class GameObjectGenerator implements Runnable {
-		private int i = 0;
+		private int i = 2;
 		
 		private int getRandomY() {
 			int y = 0;
 			
-			if(i == 0) {
+			if(i == 0) { // Upper Side 0 ~ 130
 				y = (int)(Math.random() * 130);
 				i++;
 			}
-			else if(i == 1) {
-				y = (int)(Math.random() * 180 + 400);
+			else if(i == 1) { // Lower Side 380 ~ 580
+				y = (int)(Math.random() * 200 + 380);
 				i++;
 			}
-			else if(i == 2) {
-				y = (int)(Math.random() * 130 + 200);
+			else if(i == 2) { // Middle Side 180 ~ 330
+				y = (int)(Math.random() * 150 + 180);
 				i = 0;
 			}
 			
@@ -228,7 +250,7 @@ public class GamePanel extends JPanel {
 				GameObject newObject;
 				int y = getRandomY();
 				
-				if(i % 5 == 0) {
+				if(i % 10 == 0) {
 					newObject = new Toy(wordSource.getWord(), 0, y);
 				}
 				else {
@@ -239,20 +261,11 @@ public class GamePanel extends JPanel {
 				gameGroundPanel.add(newObject);
 				gameGroundPanel.repaint();
 					
-				int delay = 2500;
-				
-				if(score >= 100) {
-					delay = 750;
-				}
-				else if(score >= 75) {
-					delay = 1200;
-				}
-				else if(score >= 50) {
-					delay = 1600;
-				}
-				else if(score >= 25) {
-					delay = 2200;
-				}
+				int delay = 2100;
+				if(score >= 65) { delay = 1350; }
+				else if(score >= 45) { delay = 1500; }
+				else if(score >= 30) { delay = 1750; }
+				else if(score >= 15) { delay = 1950; }
 				
 				try {
 					System.out.println(delay);
