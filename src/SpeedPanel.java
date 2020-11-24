@@ -24,8 +24,8 @@ public class SpeedPanel extends JPanel {
 		wpmLabel = new JLabel("WPM : 0", JLabel.CENTER);
 		accuracyLabel = new JLabel("ACCURACY : 100%", JLabel.CENTER);
 		
-		wpmLabel.setFont(new Font("Consolas", Font.PLAIN, 18));
-		accuracyLabel.setFont(new Font("Consolas", Font.PLAIN, 18));
+		wpmLabel.setFont(new Font("Consolas", Font.BOLD, 18));
+		accuracyLabel.setFont(new Font("Consolas", Font.BOLD, 18));
 		
 		wpmLabel.setForeground(Color.WHITE);
 		accuracyLabel.setForeground(Color.WHITE);
