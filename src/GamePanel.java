@@ -26,6 +26,9 @@ public class GamePanel extends JPanel {
 	private int nLife = 3;
 	private boolean isPlaying = false;
 	
+	private int movingDelay = 50;
+	private int generatingDelay = 2200;
+	
 	
 	public GamePanel(EvaluationUpdater evaluationUpdater) {
 		this.evaluationUpdater = evaluationUpdater;
@@ -54,6 +57,8 @@ public class GamePanel extends JPanel {
 		// Clear container.
 		gameObjects.clear();
 
+		resetDifficulty();
+		
 		generator = new Thread(new GameObjectGenerator());
 		mover = new Thread(new GameObjectMover());
 		
@@ -130,14 +135,15 @@ public class GamePanel extends JPanel {
 							isFoundAnswer = true;
 							
 							if(targetObj instanceof Toy) {
-								if(nLife < 3) {
+								if(nLife < 5) {
 									nLife++;
 									evaluationUpdater.setLife(nLife);									
 								}
 							}
 							else if(targetObj instanceof Ghost) {
 								evaluationUpdater.increaseAccuracy();
-								evaluationUpdater.setScore(++score);								
+								evaluationUpdater.setScore(++score);
+								checkAndUpdateDifficulty();
 							}
 							
 							gameGroundPanel.remove(targetObj);
@@ -157,6 +163,32 @@ public class GamePanel extends JPanel {
 					inputField.setText("");
 				}
 			});
+		}
+	}
+	
+	
+	public void resetDifficulty() {
+		generatingDelay = 2200;
+		movingDelay = 50;
+	}
+	
+	
+	public void checkAndUpdateDifficulty() {
+		if(score >= 65) { 
+			generatingDelay = 1400; 
+			movingDelay = 30;
+		}
+		else if(score >= 45) { 
+			generatingDelay = 1600; 
+			movingDelay = 35;
+		}
+		else if(score >= 30) { 
+			generatingDelay = 1800;
+			movingDelay = 40;
+		}
+		else if(score >= 15) { 
+			generatingDelay = 2000;
+			movingDelay = 45;
 		}
 	}
 	
@@ -203,15 +235,8 @@ public class GamePanel extends JPanel {
 					}
 				}
 				
-				int delay = 50;
-				if(score >= 65) {delay = 30; }
-				else if(score >= 45) { delay = 35; }
-				else if(score >= 30) { delay = 40; }
-				else if(score >= 15) { delay = 45; }
-				
 				try {
-					Thread.sleep(delay);
-					
+					Thread.sleep(movingDelay);
 				} catch (InterruptedException e) {
 					return;
 				}
@@ -261,15 +286,8 @@ public class GamePanel extends JPanel {
 				gameGroundPanel.add(newObject);
 				gameGroundPanel.repaint();
 					
-				int delay = 2100;
-				if(score >= 65) { delay = 1350; }
-				else if(score >= 45) { delay = 1500; }
-				else if(score >= 30) { delay = 1750; }
-				else if(score >= 15) { delay = 1950; }
-				
 				try {
-					System.out.println(delay);
-					Thread.sleep(delay);
+					Thread.sleep(generatingDelay);
 				} catch (InterruptedException e) {
 					return;
 				}
