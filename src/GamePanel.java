@@ -154,6 +154,9 @@ public class GamePanel extends JPanel {
 									evaluationUpdater.setLife(nLife);
 									noticeLabel.showNotice("You got a life!", 1500, Color.ORANGE);
 								}
+								else {
+									noticeLabel.showNotice("You can't have more than 5 lives.", 1500);
+								}
 							}
 							else if(targetObj instanceof Ghost) {
 								evaluationUpdater.increaseAccuracy();
