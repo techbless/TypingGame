@@ -65,7 +65,7 @@ public class EvaluationUpdater {
 	}
 	
 	
-	public void increaseScore(int score) {
+	public void setScore(int score) {
 		scorePanel.setScore(score);
 	}
 	
