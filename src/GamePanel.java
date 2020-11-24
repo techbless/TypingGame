@@ -203,7 +203,7 @@ public class GamePanel extends JPanel {
 					}
 				}
 				
-				int delay = 30;
+				int delay = 50;
 				if(score >= 65) {delay = 30; }
 				else if(score >= 45) { delay = 35; }
 				else if(score >= 30) { delay = 40; }
