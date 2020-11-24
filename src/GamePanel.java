@@ -9,6 +9,7 @@ import java.awt.event.KeyEvent;
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -22,6 +23,9 @@ public class GamePanel extends JPanel {
 	private EvaluationUpdater evaluationUpdater;
 	private Baby baby;
 	
+	private NoticeLabel noticeLabel;
+	
+	private int difficulty;
 	private int score = 0;
 	private int nLife = 3;
 	private boolean isPlaying = false;
@@ -44,6 +48,9 @@ public class GamePanel extends JPanel {
 	
 	
 	public void startGame() {
+		nLife = 3;
+		difficulty = 1;
+		score = 0;
 		isPlaying = true;
 
 		// Remove gameObjects from panel.
@@ -65,9 +72,10 @@ public class GamePanel extends JPanel {
 		generator.start();
 		mover.start();
 		evaluationUpdater.start();
-		
-		nLife = 3;
 		evaluationUpdater.setLife(nLife);
+		evaluationUpdater.setScore(0);
+		
+		noticeLabel.showNotice("Game Start! Save the baby.", 2000, Color.GREEN);
 	}
 	
 	
@@ -77,6 +85,7 @@ public class GamePanel extends JPanel {
 		generator.interrupt();
 		mover.interrupt();
 		evaluationUpdater.end();
+		noticeLabel.showNotice("Game End... Your score is " + score + ".", 2000);
 	}
 	
 	
@@ -87,6 +96,11 @@ public class GamePanel extends JPanel {
 			
 			baby = new Baby(950, 430);
 			add(baby);
+			
+			// Notice Label
+			noticeLabel = new NoticeLabel();
+			add(noticeLabel);
+			noticeLabel.setVisible(false);
 		}
 		
 		
@@ -137,7 +151,8 @@ public class GamePanel extends JPanel {
 							if(targetObj instanceof Toy) {
 								if(nLife < 5) {
 									nLife++;
-									evaluationUpdater.setLife(nLife);									
+									evaluationUpdater.setLife(nLife);
+									noticeLabel.showNotice("You got a life!", 1500, Color.ORANGE);
 								}
 							}
 							else if(targetObj instanceof Ghost) {
@@ -150,7 +165,6 @@ public class GamePanel extends JPanel {
 							gameGroundPanel.revalidate();
 							gameGroundPanel.repaint();
 							gameObjects.remove(i);
-							
 							
 							System.out.println("Answer : " + inWord);
 						}
@@ -174,22 +188,32 @@ public class GamePanel extends JPanel {
 	
 	
 	public void checkAndUpdateDifficulty() {
+		int beforeDifficulty = difficulty;
 		if(score >= 65) { 
+			difficulty = 5;
 			generatingDelay = 1400; 
 			movingDelay = 30;
 		}
 		else if(score >= 45) { 
+			difficulty = 4;
 			generatingDelay = 1600; 
 			movingDelay = 35;
 		}
 		else if(score >= 30) { 
+			difficulty = 3;
 			generatingDelay = 1800;
 			movingDelay = 40;
 		}
 		else if(score >= 15) { 
+			difficulty = 2;
 			generatingDelay = 2000;
 			movingDelay = 45;
 		}
+		
+		if(beforeDifficulty != difficulty) {
+			noticeLabel.showNotice("Level " + difficulty + "!", 1500);			
+		}
+		
 	}
 	
 	
@@ -222,12 +246,14 @@ public class GamePanel extends JPanel {
 					
 					if(baby.isTouched(targetObj)) {
 						if(targetObj instanceof Ghost) {
+							noticeLabel.showNotice("The ghost startled the baby. [ ♥ - 1 ]", 1500, Color.ORANGE);
+							
 							nLife--;
 							evaluationUpdater.setLife(nLife);
 							
 							if(nLife <= 0) {
 								endGame();															
-							}
+							}							
 						}
 						
 						gameGroundPanel.remove(targetObj);
