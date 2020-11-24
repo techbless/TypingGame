@@ -22,6 +22,7 @@ public class GamePanel extends JPanel {
 	private EvaluationUpdater evaluationUpdater;
 	private Baby baby;
 	private int score = 0;
+	private boolean isPlaying = false;
 	
 	
 	public GamePanel(EvaluationUpdater evaluationUpdater) {
@@ -40,6 +41,7 @@ public class GamePanel extends JPanel {
 	
 	
 	public void startGame() {
+		isPlaying = true;
 
 		// Remove gameObjects from panel.
 		for(int i = 0; i < gameObjects.size(); i++) {			
@@ -62,6 +64,8 @@ public class GamePanel extends JPanel {
 	
 	
 	public void endGame() {
+		isPlaying = false;
+		
 		generator.interrupt();
 		mover.interrupt();
 		evaluationUpdater.end();
@@ -108,6 +112,11 @@ public class GamePanel extends JPanel {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					if(!isPlaying) { 
+						inputField.setText("");
+						return; 
+					}
+					
 					JTextField tField = (JTextField)(e.getSource());
 					String inWord = tField.getText();
 					
