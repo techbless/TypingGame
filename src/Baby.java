@@ -30,7 +30,7 @@ public class Baby extends GameObject {
 	
 	
 	public boolean isTouched(GameObject gameObject) {		
-		return (gameObject.getX() == this.getX());
+		return (gameObject.getX() >= this.getX());
 	}
 
 }
