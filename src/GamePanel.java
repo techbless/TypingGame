@@ -99,7 +99,7 @@ public class GamePanel extends JPanel {
 			setLayout(null);
 			setBackground(Color.DARK_GRAY);
 			
-			baby = new Baby(950, 430);
+			baby = new Baby(920, 430);
 			add(baby);
 			
 			// Notice Label
@@ -156,10 +156,10 @@ public class GamePanel extends JPanel {
 								if(nLife < 5) {
 									nLife++;
 									evaluationUpdater.setLife(nLife);
-									noticeLabel.showNotice("You got a life!", 1500, Color.ORANGE);
+									noticeLabel.showNotice("You got a life!", 1500, Color.CYAN);
 								}
 								else {
-									noticeLabel.showNotice("You can't have more than 5 lives.", 1500);
+									noticeLabel.showNotice("You can't have more than 5 lives.", 1500, Color.ORANGE);
 								}
 							}
 							else if(targetObj instanceof Ghost) {
@@ -259,7 +259,7 @@ public class GamePanel extends JPanel {
 					
 					if(baby.isTouched(targetObj)) {
 						if(targetObj instanceof Ghost) {
-							noticeLabel.showNotice("The ghost startled the baby. [ ♥ - 1 ]", 1500, Color.ORANGE);
+							noticeLabel.showNotice("The ghost startled the baby. [ ♥ - 1 ]", 1500);
 							
 							nLife--;
 							evaluationUpdater.setLife(nLife);
