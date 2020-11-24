@@ -90,7 +90,7 @@ public class GamePanel extends JPanel {
 		generator.interrupt();
 		mover.interrupt();
 		evaluationUpdater.end();
-		noticeLabel.showNotice("Game End... Your score is " + score + ".", 2000);
+		noticeLabel.showNotice("Game End... Your score is " + score + ".", 5000);
 	}
 	
 	
@@ -265,8 +265,8 @@ public class GamePanel extends JPanel {
 							evaluationUpdater.setLife(nLife);
 							
 							if(nLife <= 0) {
-								endGame();															
-							}							
+								endGame();
+							}
 						}
 						
 						gameGroundPanel.remove(targetObj);
