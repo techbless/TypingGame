@@ -4,6 +4,7 @@ import java.awt.GridLayout;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 public class ScorePanel extends JPanel {
 	private JLabel scoreLabel;
@@ -13,14 +14,18 @@ public class ScorePanel extends JPanel {
 	public ScorePanel() {
 		setBackground(Color.DARK_GRAY);
 		
+		setLayout(new GridLayout(2, 1));
+		
 		scoreLabel = new JLabel("SCORE : 0");
 		scoreLabel.setFont(new Font("Consolas", Font.BOLD, 18));
 		scoreLabel.setForeground(Color.WHITE);
+		scoreLabel.setHorizontalAlignment(JLabel.CENTER);
 		add(scoreLabel);
 		
-		lifeLabel = new JLabel("LIFE : 3");
-		lifeLabel.setFont(new Font("Consolas", Font.BOLD, 18));
-		lifeLabel.setForeground(Color.WHITE);
+		lifeLabel = new JLabel("♥♥♥");
+		lifeLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 22));
+		lifeLabel.setForeground(Color.RED);
+		lifeLabel.setHorizontalAlignment(JLabel.CENTER);
 		add(lifeLabel);
 		
 	}
@@ -33,6 +38,17 @@ public class ScorePanel extends JPanel {
 	
 	
 	public void setLife(int nLife) {
-		lifeLabel.setText("LIFE : " + nLife);
+		String lifeInString = "";
+		
+		if (nLife == 0) {
+			lifeInString = "NO LIFE";
+		}
+		else {
+			for(int i = 0; i < nLife; i++) {
+				lifeInString += "♥";
+			}			
+		}
+		
+		lifeLabel.setText(lifeInString);
 	}
 }
