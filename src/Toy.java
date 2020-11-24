@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Image;
 
 import javax.swing.ImageIcon;
@@ -20,6 +21,8 @@ public class Toy extends GameObject {
 		
 		this.setIcon(imageIcon);
 		this.setText(word);
+		this.setFont(new Font("Consolas", Font.BOLD, 15));
+		
 		this.setVerticalTextPosition(JLabel.BOTTOM);
 		this.setHorizontalTextPosition(JLabel.CENTER);
 		

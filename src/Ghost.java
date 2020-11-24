@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Image;
 
 import javax.swing.ImageIcon;
@@ -20,12 +21,14 @@ public class Ghost extends GameObject {
 		
 		this.setIcon(imageIcon);
 		this.setText(word);
+		this.setFont(new Font("Consolas", Font.BOLD, 15));
+		
 		this.setVerticalTextPosition(JLabel.BOTTOM);
 		this.setHorizontalTextPosition(JLabel.CENTER);
 		
 		setForeground(Color.WHITE);
 		setLocation(x, y);
-		setSize(100, 90);
+		setSize(120, 90);
 		setOpaque(false);
 	}
 	
