@@ -27,6 +27,11 @@ public class EvaluationUpdater {
 	}
 	
 	
+	public void setLife(int nLife) {
+		scorePanel.setLife(nLife);
+	}
+	
+	
 	public void increaseAccuracy() {
 		totalWordCount++;
 		rightWordCount++;

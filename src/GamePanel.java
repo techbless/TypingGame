@@ -22,6 +22,7 @@ public class GamePanel extends JPanel {
 	private EvaluationUpdater evaluationUpdater;
 	private Baby baby;
 	private int score = 0;
+	private int nLife = 3;
 	private boolean isPlaying = false;
 	
 	
@@ -126,13 +127,20 @@ public class GamePanel extends JPanel {
 						if(targetObj.getWord().equals(inWord)) {
 							isFoundAnswer = true;
 							
+							if(targetObj instanceof Toy) {
+								nLife++;
+								evaluationUpdater.setLife(nLife);
+							}
+							else if(targetObj instanceof Ghost) {
+								evaluationUpdater.increaseAccuracy();
+								evaluationUpdater.increaseScore(++score);								
+							}
+							
 							gameGroundPanel.remove(targetObj);
 							gameGroundPanel.revalidate();
 							gameGroundPanel.repaint();
 							gameObjects.remove(i);
 							
-							evaluationUpdater.increaseAccuracy();
-							evaluationUpdater.increaseScore(++score);
 							
 							System.out.println("Answer : " + inWord);
 						}
