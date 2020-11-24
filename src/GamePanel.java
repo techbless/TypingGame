@@ -184,9 +184,7 @@ public class GamePanel extends JPanel {
 								endGame();															
 							}
 						}
-						else if(targetObj instanceof Toy) {
-							gameGroundPanel.remove(targetObj);
-						}
+						gameGroundPanel.remove(targetObj);
 					}
 				}
 				
@@ -212,7 +210,7 @@ public class GamePanel extends JPanel {
 				i++;
 			}
 			else if(i == 1) {
-				y = (int)(Math.random() * 210 + 400);
+				y = (int)(Math.random() * 180 + 400);
 				i++;
 			}
 			else if(i == 2) {
