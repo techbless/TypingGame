@@ -33,8 +33,12 @@ public class GamePanel extends JPanel {
 	private int movingDelay = 50;
 	private int generatingDelay = 2200;
 	
+	private ImageIcon backgroundIcon;
+	
 	
 	public GamePanel(EvaluationUpdater evaluationUpdater) {
+		backgroundIcon = new ImageIcon(this.getClass().getResource("img/background_easy.jpg"));
+
 		this.evaluationUpdater = evaluationUpdater;
 		
 		gameObjects = new Vector<GameObject>(30);
@@ -52,6 +56,7 @@ public class GamePanel extends JPanel {
 		difficulty = 1;
 		score = 0;
 		isPlaying = true;
+		
 
 		// Remove gameObjects from panel.
 		for(int i = 0; i < gameObjects.size(); i++) {			
@@ -107,9 +112,8 @@ public class GamePanel extends JPanel {
 		// Set the background of game ground.
 		public void paintComponent(Graphics g) {
 			super.paintComponent(g);
-			ImageIcon icon = new ImageIcon(this.getClass().getResource("img/background.jpg"));
-			Image img = icon.getImage();
-			g.drawImage(img, 0, 0, getWidth(), getHeight(), null);
+			Image image = backgroundIcon.getImage();
+			g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
 		}
 	}
 	
@@ -192,29 +196,35 @@ public class GamePanel extends JPanel {
 	
 	public void checkAndUpdateDifficulty() {
 		int beforeDifficulty = difficulty;
-		if(score >= 65) { 
+		if(score >= 65) { // Level 5
 			difficulty = 5;
 			generatingDelay = 1400; 
 			movingDelay = 30;
 		}
-		else if(score >= 45) { 
+		else if(score >= 45) { // Level 4
 			difficulty = 4;
 			generatingDelay = 1600; 
 			movingDelay = 35;
 		}
-		else if(score >= 30) { 
+		else if(score >= 30) { // Level 3
 			difficulty = 3;
 			generatingDelay = 1800;
 			movingDelay = 40;
 		}
-		else if(score >= 15) { 
+		else if(score >= 15) { // Level 2
 			difficulty = 2;
 			generatingDelay = 2000;
 			movingDelay = 45;
 		}
 		
 		if(beforeDifficulty != difficulty) {
-			noticeLabel.showNotice("Level " + difficulty + "!", 1500);			
+			noticeLabel.showNotice("Level " + difficulty + "!", 1500);
+			if(difficulty == 2) {
+				backgroundIcon = new ImageIcon(this.getClass().getResource("img/background_mid.jpg"));				
+			}
+			else if(difficulty == 4) {
+				backgroundIcon = new ImageIcon(this.getClass().getResource("img/background_hard.jpg"));
+			}
 		}
 		
 	}
