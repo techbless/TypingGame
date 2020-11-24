@@ -3,11 +3,11 @@ public class EvaluationUpdater {
 	private SpeedPanel speedPanel;
 	private ScorePanel scorePanel;
 	private String inputStringDummy = "";
-	int totalWordCount = 0;
-	int rightWordCount = 0;
+	private int totalWordCount = 0;
+	private int rightWordCount = 0;
 	private Thread wpmUpdater;
-	
 	private long startTimeInMillis;
+	
 	
 	public EvaluationUpdater(SpeedPanel speedPanel, ScorePanel scorePanel) {
 		this.speedPanel = speedPanel;
@@ -20,6 +20,7 @@ public class EvaluationUpdater {
 		wpmUpdater.start();
 		startTimeInMillis = System.currentTimeMillis();
 	}
+	
 	
 	public void end() {
 		wpmUpdater.interrupt();
@@ -58,6 +59,12 @@ public class EvaluationUpdater {
 		speedPanel.setWPM(wpm);
 	}
 	
+	
+	public void increaseScore(int score) {
+		scorePanel.setScore(score);
+	}
+	
+	
 	class WPMUpdater implements Runnable {
 
 		@Override
@@ -66,10 +73,9 @@ public class EvaluationUpdater {
 				updateWPM();
 				
 				try {
-					Thread.sleep(100);
+					Thread.sleep(20);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					return;
 				}
 			}
 		}

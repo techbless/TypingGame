@@ -21,6 +21,7 @@ public class GamePanel extends JPanel {
 	private Vector<GameObject> gameObjects;
 	private EvaluationUpdater evaluationUpdater;
 	private Baby baby;
+	private int score = 0;
 	
 	
 	public GamePanel(EvaluationUpdater evaluationUpdater) {
@@ -122,6 +123,8 @@ public class GamePanel extends JPanel {
 							gameObjects.remove(i);
 							
 							evaluationUpdater.increaseAccuracy();
+							evaluationUpdater.increaseScore(++score);
+							
 							System.out.println("Answer : " + inWord);
 						}
 					}
@@ -147,7 +150,7 @@ public class GamePanel extends JPanel {
 				
 				for(int i = 0; i < gameObjects.size(); i++) {
 					int deltaY = 0;
-					if(count % 3 == 0) {
+					if(count % 10 == 0) {
 						deltaY = (int)(Math.random() * 5) * ((Math.random() > 0.5 ? 1 : -1));
 					}
 					
@@ -190,9 +193,24 @@ public class GamePanel extends JPanel {
 				gameObjects.add(newObject);
 				gameGroundPanel.add(newObject);
 				gameGroundPanel.repaint();
-								
+					
+				int delay = 2500;
+				if(score >= 10) {
+					delay = 750;
+				}
+				else if(score >= 7) {
+					delay = 1200;
+				}
+				else if(score >= 5) {
+					delay = 1600;
+				}
+				else if(score >= 2) {
+					delay = 2200;
+				}
+				
 				try {
-					Thread.sleep(3500);
+					System.out.println(delay);
+					Thread.sleep(delay);
 				} catch (InterruptedException e) {
 					return;
 				}
