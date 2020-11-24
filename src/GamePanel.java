@@ -21,6 +21,7 @@ public class GamePanel extends JPanel {
 	private Vector<GameObject> gameObjects;
 	private EvaluationUpdater evaluationUpdater;
 	private Baby baby;
+	
 	private int score = 0;
 	private int nLife = 3;
 	private boolean isPlaying = false;
@@ -126,12 +127,14 @@ public class GamePanel extends JPanel {
 							isFoundAnswer = true;
 							
 							if(targetObj instanceof Toy) {
-								nLife++;
-								evaluationUpdater.setLife(nLife);
+								if(nLife < 3) {
+									nLife++;
+									evaluationUpdater.setLife(nLife);									
+								}
 							}
 							else if(targetObj instanceof Ghost) {
 								evaluationUpdater.increaseAccuracy();
-								evaluationUpdater.increaseScore(++score);								
+								evaluationUpdater.setScore(++score);								
 							}
 							
 							gameGroundPanel.remove(targetObj);
@@ -174,7 +177,12 @@ public class GamePanel extends JPanel {
 					
 					if(baby.isTouched(targetObj)) {
 						if(targetObj instanceof Ghost) {
-							endGame();							
+							nLife--;
+							evaluationUpdater.setLife(nLife);
+							
+							if(nLife <= 0) {
+								endGame();															
+							}
 						}
 						else if(targetObj instanceof Toy) {
 							gameGroundPanel.remove(targetObj);
@@ -198,6 +206,7 @@ public class GamePanel extends JPanel {
 		
 		private int getRandomY() {
 			int y = 0;
+			
 			if(i == 0) {
 				y = (int)(Math.random() * 130);
 				i++;
@@ -220,8 +229,6 @@ public class GamePanel extends JPanel {
 			while(true) {
 				GameObject newObject;
 				int y = getRandomY();
-				
-				
 				
 				if(i % 5 == 0) {
 					newObject = new Toy(wordSource.getWord(), 0, y);
