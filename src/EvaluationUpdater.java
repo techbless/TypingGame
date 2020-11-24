@@ -23,6 +23,7 @@ public class EvaluationUpdater {
 	
 	
 	public void end() {
+		inputStringDummy = "";
 		wpmUpdater.interrupt();
 	}
 	
@@ -70,6 +71,7 @@ public class EvaluationUpdater {
 	}
 	
 	
+	
 	class WPMUpdater implements Runnable {
 
 		@Override
@@ -78,7 +80,7 @@ public class EvaluationUpdater {
 				updateWPM();
 				
 				try {
-					Thread.sleep(20);
+					Thread.sleep(100);
 				} catch (InterruptedException e) {
 					return;
 				}
