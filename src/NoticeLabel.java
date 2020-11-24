@@ -9,7 +9,7 @@ public class NoticeLabel extends JLabel {
 		setFont(new Font("Consolas", Font.BOLD, 30));
 		
 		setForeground(Color.RED);
-		setLocation(50, 50);
+		setLocation(50, 30);
 		setSize(1000, 50);
 		setOpaque(false);
 	}
