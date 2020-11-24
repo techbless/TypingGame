@@ -36,8 +36,6 @@ public class GamePanel extends JPanel {
 		
 		add(gameGroundPanel, BorderLayout.CENTER);
 		add(new InputPanel(), BorderLayout.SOUTH);
-		
-		
 	}
 	
 	
@@ -196,22 +194,48 @@ public class GamePanel extends JPanel {
 	
 	
 	class GameObjectGenerator implements Runnable {
+		private int i = 0;
+		
+		private int getRandomY() {
+			int y = 0;
+			if(i == 0) {
+				y = (int)(Math.random() * 130);
+				i++;
+			}
+			else if(i == 1) {
+				y = (int)(Math.random() * 210 + 400);
+				i++;
+			}
+			else if(i == 2) {
+				y = (int)(Math.random() * 130 + 200);
+				i = 0;
+			}
+			
+			return y;
+		}
+		
 		@Override
 		public void run() {
 			int i = 1;
 			while(true) {
 				GameObject newObject;
+				int y = getRandomY();
+				
+				
+				
 				if(i % 5 == 0) {
-					newObject = new Toy(wordSource.getWord(), 0, (int)(Math.random()*600));
+					newObject = new Toy(wordSource.getWord(), 0, y);
 				}
 				else {
-					newObject = new Ghost(wordSource.getWord(), 0, (int)(Math.random()*600));
+					newObject = new Ghost(wordSource.getWord(), 0, y);
 				}
+				
 				gameObjects.add(newObject);
 				gameGroundPanel.add(newObject);
 				gameGroundPanel.repaint();
 					
 				int delay = 2500;
+				
 				if(score >= 100) {
 					delay = 750;
 				}
