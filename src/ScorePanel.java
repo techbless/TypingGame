@@ -6,10 +6,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+@SuppressWarnings("serial")
 public class ScorePanel extends JPanel {
 	private JLabel scoreLabel;
 	private JLabel lifeLabel;
-	private int score;
 	
 	public ScorePanel() {
 		setBackground(Color.DARK_GRAY);
@@ -32,7 +32,6 @@ public class ScorePanel extends JPanel {
 	
 	
 	public void setScore(int score) {
-		this.score = score;
 		scoreLabel.setText("SCORE : " + score);
 	}
 	

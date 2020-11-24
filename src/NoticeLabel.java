@@ -3,6 +3,7 @@ import java.awt.Font;
 
 import javax.swing.JLabel;
 
+@SuppressWarnings("serial")
 public class NoticeLabel extends JLabel {
 	public NoticeLabel() {
 		setText("Notice!");

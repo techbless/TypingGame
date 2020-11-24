@@ -12,6 +12,7 @@ import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+@SuppressWarnings("serial")
 public class EditPanel extends JPanel {
 	private JTextField input;
 	WordSource wordSource;
@@ -34,6 +35,7 @@ public class EditPanel extends JPanel {
 
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
+				@SuppressWarnings("unchecked")
 				JList<String> source = (JList<String>)e.getSource();
 				
 				// 안하면 에러뜸

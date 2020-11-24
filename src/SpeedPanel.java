@@ -5,16 +5,12 @@ import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+@SuppressWarnings("serial")
 public class SpeedPanel extends JPanel {
-	private int wpm;
-	private int accuracy;
 	private JLabel wpmLabel;
 	private JLabel accuracyLabel;
 	
-	public SpeedPanel() {
-		wpm = 0;
-		accuracy = 0;
-		
+	public SpeedPanel() {		
 		setBackground(Color.DARK_GRAY);
 		GridLayout grid = new GridLayout(2, 1);
 		grid.setVgap(-30);

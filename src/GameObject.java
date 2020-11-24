@@ -1,5 +1,6 @@
 import javax.swing.JLabel;
 
+@SuppressWarnings("serial")
 public abstract class GameObject extends JLabel {	
 	private String word;
 	
