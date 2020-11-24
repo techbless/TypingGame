@@ -195,16 +195,16 @@ public class GamePanel extends JPanel {
 				gameGroundPanel.repaint();
 					
 				int delay = 2500;
-				if(score >= 10) {
+				if(score >= 100) {
 					delay = 750;
 				}
-				else if(score >= 7) {
+				else if(score >= 75) {
 					delay = 1200;
 				}
-				else if(score >= 5) {
+				else if(score >= 50) {
 					delay = 1600;
 				}
-				else if(score >= 2) {
+				else if(score >= 25) {
 					delay = 2200;
 				}
 				
