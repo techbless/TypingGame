@@ -3,9 +3,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Scanner;
 import java.util.Vector;
 
@@ -24,7 +22,6 @@ public class TopTen {
 	}
 	
 	
-	@SuppressWarnings("unchecked")
 	public void updateTopTen(String name, int score) {
 		for(int i = 0; i < topten.size(); i++) {
 			Player player = topten.get(i);
@@ -43,6 +40,11 @@ public class TopTen {
 		topten.add(p);
 		Collections.sort(topten, Collections.reverseOrder());
 		saveFile(10);
+	}
+	
+	
+	public Vector<Player> getTopTenPlayers() {
+		return topten;
 	}
 	
 	
@@ -84,30 +86,6 @@ public class TopTen {
 			fw.close();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
-	}
-	
-	
-	class Player implements Comparable {
-		public String name;
-		public int score;
-		
-		public Player(String name, int score) {
-			this.name = name;
-			this.score = score;
-		}
-
-
-		@Override
-		public int compareTo(Object o) {
-			Player player = (Player)o;
-			if (this.score < player.score) {
-             return -1;
-			} else if (this.score == player.score) {
-				return 0;
-			} else {
-				return 1;
-			}
 		}
 	}
 }

@@ -1,7 +1,5 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -103,6 +101,7 @@ public class GamePanel extends JPanel {
 		
 		TopTen topten = TopTen.getInstance();
 		topten.updateTopTen(name, score);
+		evaluationUpdater.updateTopTen(topten.getTopTenPlayers());
 		
 		isPlaying = false;
 		name = null;

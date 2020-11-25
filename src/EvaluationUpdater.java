@@ -1,3 +1,4 @@
+import java.util.Vector;
 
 public class EvaluationUpdater {
 	private SpeedPanel speedPanel;
@@ -70,6 +71,10 @@ public class EvaluationUpdater {
 		scorePanel.setScore(score);
 	}
 	
+	
+	public void updateTopTen(Vector<Player> players) {
+		scorePanel.updateTopTen(players);
+	}
 	
 	
 	class WPMUpdater implements Runnable {

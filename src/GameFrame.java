@@ -50,7 +50,7 @@ public class GameFrame extends JFrame {
 		
 		JSplitPane pPane2 = new JSplitPane();
 		pPane2.setOrientation(JSplitPane.VERTICAL_SPLIT);
-		pPane2.setDividerLocation(200);
+		pPane2.setDividerLocation(350);
 		pPane2.setTopComponent(scorePanel);
 		pPane2.setBottomComponent(editPanel);
 		pPane1.setBottomComponent(pPane2);
