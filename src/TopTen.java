@@ -28,7 +28,6 @@ public class TopTen {
 	public void updateTopTen(String name, int score) {
 		Player p = new Player(name, score);
 		topten.add(p);
-		//topten.sort(new PlayerComparator());
 		Collections.sort(topten, Collections.reverseOrder());
 		saveFile(10);
 		
