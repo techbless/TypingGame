@@ -1,5 +1,7 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -9,7 +11,6 @@ import java.awt.event.KeyEvent;
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -24,8 +25,10 @@ public class GamePanel extends JPanel {
 	private EvaluationUpdater evaluationUpdater;
 	private Baby baby;
 	
+	private JTextField inputField;
 	private NoticeLabel noticeLabel;
 	
+	private String name = null;
 	private int difficulty;
 	private int score = 0;
 	private int nLife = 3;
@@ -57,7 +60,8 @@ public class GamePanel extends JPanel {
 		difficulty = 1;
 		score = 0;
 		isPlaying = true;
-		
+		name = inputField.getText();
+		inputField.setText("");
 
 		// Remove gameObjects from panel.
 		for(int i = 0; i < gameObjects.size(); i++) {			
@@ -86,12 +90,16 @@ public class GamePanel extends JPanel {
 	
 	
 	public void endGame() {
-		isPlaying = false;
-		
 		generator.interrupt();
 		mover.interrupt();
 		evaluationUpdater.end();
 		noticeLabel.showNotice("Game End... Your score is " + score + ".", 5000);
+		
+		TopTen topten = TopTen.getInstance();
+		topten.updateTopTen(name, score);
+		
+		isPlaying = false;
+		name = null;
 	}
 	
 	
@@ -122,7 +130,7 @@ public class GamePanel extends JPanel {
 	class InputPanel extends JPanel {
 		public InputPanel() {
 			setBackground(Color.DARK_GRAY);
-			JTextField inputField = new JTextField(40);
+			inputField = new JTextField(40);
 			add(inputField);
 			
 			inputField.addKeyListener(new KeyAdapter() {
