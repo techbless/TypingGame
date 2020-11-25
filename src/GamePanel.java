@@ -56,11 +56,17 @@ public class GamePanel extends JPanel {
 	
 	
 	public void startGame() {
+		name = inputField.getText();
+		if(name.equals("")) {
+			noticeLabel.showNotice("Enter your name and try again.", 3000, Color.PINK);
+			return;
+		}
+		
 		nLife = 3;
 		difficulty = 1;
 		score = 0;
 		isPlaying = true;
-		name = inputField.getText();
+		
 		inputField.setText("");
 
 		// Remove gameObjects from panel.
