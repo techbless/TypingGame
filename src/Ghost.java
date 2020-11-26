@@ -17,7 +17,7 @@ public class Ghost extends GameObject {
 	void draw(String word, int x, int y) {
 		ImageIcon imageIcon = new ImageIcon(this.getClass().getResource("img/ghost.png"));
 		Image image = imageIcon.getImage();
-		Image newImage = image.getScaledInstance(70, 70, Image.SCALE_SMOOTH);
+		Image newImage = image.getScaledInstance(55, 55, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(newImage);
 		
 		this.setIcon(imageIcon);
@@ -29,7 +29,7 @@ public class Ghost extends GameObject {
 		
 		setForeground(Color.WHITE);
 		setLocation(x, y);
-		setSize(120, 90);
+		setSize(130, 80);
 		setOpaque(false);
 	}
 	
