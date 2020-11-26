@@ -28,6 +28,7 @@ public class TopTen {
 			Player player = topten.get(i);
 			String nameInFile = player.name;
 			
+			// If the player exists arleady
 			if(nameInFile.equals(name)) {
 				isFound = true;
 				if(player.score < score) {
@@ -36,12 +37,21 @@ public class TopTen {
 			}
 		}
 		
+		// If a new player
 		if(!isFound) {
 			Player p = new Player(name, score);
 			topten.add(p);			
 		}
 		
+		// Order by score
 		Collections.sort(topten, Collections.reverseOrder());
+		
+		// Remove all after index number 9
+		for(int i = 10; i < topten.size(); i++) {
+			topten.remove(i);
+		}
+		
+		// Save players' info in file
 		saveFile(10);
 	}
 	
