@@ -204,6 +204,7 @@ public class GamePanel extends JPanel {
 	
 	
 	public void resetDifficulty() {
+		backgroundIcon = new ImageIcon(this.getClass().getResource("img/background_easy.jpg"));
 		generatingDelay = 2200;
 		movingDelay = 50;
 	}
