@@ -21,4 +21,4 @@ class Player implements Comparable {
 				return 1;
 			}
 		}
-	}
+}
