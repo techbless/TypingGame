@@ -14,7 +14,7 @@ class Player implements Comparable {
 		public int compareTo(Object o) {
 			Player player = (Player)o;
 			if (this.score < player.score) {
-             return -1;
+				return -1;
 			} else if (this.score == player.score) {
 				return 0;
 			} else {
