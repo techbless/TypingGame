@@ -17,7 +17,6 @@ public class Toy extends GameObject {
 	void draw(String word, int x, int y) {
 		ImageIcon imageIcon = new ImageIcon(this.getClass().getResource("img/toy.png"));
 		Image image = imageIcon.getImage();
-		//Image newImage = image.getScaledInstance(68, 50, Image.SCALE_SMOOTH);
 		Image newImage = image.getScaledInstance(62, 45, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(newImage);
 		
