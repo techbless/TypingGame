@@ -136,6 +136,7 @@ public class GamePanel extends JPanel {
 		public InputPanel() {
 			setBackground(Color.DARK_GRAY);
 			inputField = new JTextField(40);
+			inputField.setHorizontalAlignment(JTextField.CENTER);
 			add(inputField);
 			
 			inputField.addKeyListener(new KeyAdapter() {

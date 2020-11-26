@@ -51,6 +51,7 @@ public class EditPanel extends JPanel {
 		public InputPanel() {
 			setBackground(Color.DARK_GRAY);
 			input = new JTextField(12);
+			input.setHorizontalAlignment(JTextField.CENTER);
 			add(input);			
 			
 			JButton btn = new JButton("추가/삭제");
