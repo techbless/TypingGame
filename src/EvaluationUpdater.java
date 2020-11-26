@@ -5,7 +5,7 @@ public class EvaluationUpdater {
 	private ScorePanel scorePanel;
 	private String inputStringDummy = "";
 	private int totalWordCount = 0;
-	private int rightWordCount = 0;
+	private int correctWordCount = 0;
 	private Thread wpmUpdater;
 	private long startTimeInMillis;
 	
@@ -20,10 +20,13 @@ public class EvaluationUpdater {
 		wpmUpdater = new Thread(new WPMUpdater());
 		wpmUpdater.start();
 		startTimeInMillis = System.currentTimeMillis();
+		updateAccuracy();
 	}
 	
 	
 	public void end() {
+		totalWordCount = 0;
+		correctWordCount = 0;
 		inputStringDummy = "";
 		wpmUpdater.interrupt();
 	}
@@ -36,7 +39,7 @@ public class EvaluationUpdater {
 	
 	public void increaseAccuracy() {
 		totalWordCount++;
-		rightWordCount++;
+		correctWordCount++;
 		updateAccuracy();
 	}
 	
@@ -48,7 +51,7 @@ public class EvaluationUpdater {
 	
 	
 	private void updateAccuracy() {
-		int accuracy = (int)((float)rightWordCount / totalWordCount * 100);
+		int accuracy = (int)((float)correctWordCount / totalWordCount * 100);
 		speedPanel.setAccuracy(accuracy);
 	}
 	
