@@ -28,7 +28,7 @@ public class TopTen {
 			Player player = topten.get(i);
 			String nameInFile = player.name;
 			
-			// If the player exists arleady
+			// If the player exists already
 			if(nameInFile.equals(name)) {
 				isFound = true;
 				if(player.score < score) {
