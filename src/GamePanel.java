@@ -50,6 +50,8 @@ public class GamePanel extends JPanel {
 		
 		add(gameGroundPanel, BorderLayout.CENTER);
 		add(new InputPanel(), BorderLayout.SOUTH);
+		
+		noticeLabel.showNotice("Enter your name and start the game.", 4000, Color.YELLOW);
 	}
 	
 	
