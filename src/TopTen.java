@@ -23,21 +23,24 @@ public class TopTen {
 	
 	
 	public void updateTopTen(String name, int score) {
+		boolean isFound = false;
 		for(int i = 0; i < topten.size(); i++) {
 			Player player = topten.get(i);
 			String nameInFile = player.name;
+			
 			if(nameInFile.equals(name)) {
+				isFound = true;
 				if(player.score < score) {
-					player.score = score;
-					saveFile(10);					
+					player.score = score;	
 				}
-				
-				return;
 			}
 		}
 		
-		Player p = new Player(name, score);
-		topten.add(p);
+		if(!isFound) {
+			Player p = new Player(name, score);
+			topten.add(p);			
+		}
+		
 		Collections.sort(topten, Collections.reverseOrder());
 		saveFile(10);
 	}
