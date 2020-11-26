@@ -151,56 +151,61 @@ public class GamePanel extends JPanel {
 				
 			});
 			
-			inputField.addActionListener(new ActionListener() {
-
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					if(!isPlaying) { 
-						inputField.setText("");
-						return; 
+			inputField.addActionListener(new AnswerCheckListener());
+		}
+		
+		
+		class AnswerCheckListener implements ActionListener {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(!isPlaying) { 
+					inputField.setText("");
+					return; 
+				}
+				
+				JTextField tField = (JTextField)(e.getSource());
+				String inWord = tField.getText();
+				tField.setText("");
+				
+				boolean isFoundAnswer = false;
+				
+				for(int i = 0; i < gameObjects.size(); i++) {
+					GameObject targetObj = gameObjects.get(i);
+					if(!targetObj.getWord().equals(inWord)) {
+						continue;
 					}
 					
-					JTextField tField = (JTextField)(e.getSource());
-					String inWord = tField.getText();
+					isFoundAnswer = true;
 					
-					boolean isFoundAnswer = false;
-					for(int i = 0; i < gameObjects.size(); i++) {
-						GameObject targetObj = gameObjects.get(i);
-						if(targetObj.getWord().equals(inWord)) {
-							isFoundAnswer = true;
-							
-							if(targetObj instanceof Toy) {
-								if(nLife < 5) {
-									nLife++;
-									evaluationUpdater.setLife(nLife);
-									noticeLabel.showNotice("You got a life!", 1500, Color.CYAN);
-								}
-								else {
-									noticeLabel.showNotice("You can't have more than 5 lives.", 1500, Color.ORANGE);
-								}
-							}
-							else if(targetObj instanceof Ghost) {
-								evaluationUpdater.increaseAccuracy();
-								evaluationUpdater.setScore(++score);
-								checkAndUpdateDifficulty();
-							}
-							
-							gameGroundPanel.remove(targetObj);
-							gameGroundPanel.revalidate();
-							gameGroundPanel.repaint();
-							gameObjects.remove(i);
-							
-							System.out.println("Answer : " + inWord);
+					if(targetObj instanceof Toy) {
+						if(nLife < 5) {
+							nLife++;
+							evaluationUpdater.setLife(nLife);
+							noticeLabel.showNotice("You got a life!", 1500, Color.CYAN);
+						}
+						else {
+							noticeLabel.showNotice("You can't have more than 5 lives.", 1500, Color.ORANGE);
 						}
 					}
-					
-					if(!isFoundAnswer) {
-						evaluationUpdater.decreaseAccuracy();
+					else if(targetObj instanceof Ghost) {
+						evaluationUpdater.increaseAccuracy();
+						evaluationUpdater.setScore(++score);
+						checkAndUpdateDifficulty();
 					}
 					
-					inputField.setText("");
+					gameGroundPanel.remove(targetObj);
+					gameGroundPanel.revalidate();
+					gameGroundPanel.repaint();
+					gameObjects.remove(i);
+					
+					System.out.println("Answer : " + inWord);
 				}
-			});
+				
+				if(!isFoundAnswer) {
+					evaluationUpdater.decreaseAccuracy();
+				}
+				
+			}
 		}
 	}
 	
@@ -275,21 +280,25 @@ public class GamePanel extends JPanel {
 					}
 					targetObj.setLocation(targetObj.getX() + 1, targetObj.getY() + deltaY);						
 					
-					if(baby.isTouched(targetObj)) {
-						if(targetObj instanceof Ghost) {
-							noticeLabel.showNotice("The ghost startled the baby. [ ♥ - 1 ]", 1500);
-							
-							nLife--;
-							evaluationUpdater.setLife(nLife);
-							
-							if(nLife <= 0) {
-								endGame();
-							}
-						}
-						
-						gameGroundPanel.remove(targetObj);
-						gameObjects.remove(i);
+					// If the ghost doesn't touch the baby, skip this loop
+					if(!baby.isTouched(targetObj)) {
+						continue;
 					}
+					
+					if(targetObj instanceof Ghost) {
+						noticeLabel.showNotice("The ghost startled the baby. [ ♥ - 1 ]", 1500);
+						
+						nLife--;
+						evaluationUpdater.setLife(nLife);
+						
+						if(nLife <= 0) {
+							endGame();
+						}
+					}
+					
+					// Remove it regardless of object type
+					gameGroundPanel.remove(targetObj);
+					gameObjects.remove(i);
 				}
 				
 				try {
