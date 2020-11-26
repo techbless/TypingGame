@@ -96,11 +96,15 @@ public class GamePanel extends JPanel {
 	
 	
 	public void endGame() {
+		// Interrupt threads
 		generator.interrupt();
 		mover.interrupt();
+		
+		// End evaluation updater
 		evaluationUpdater.end();
 		noticeLabel.showNotice("Game End... Your score is " + score + ".", 5000);
 		
+		// Update Top10 board
 		TopTen topten = TopTen.getInstance();
 		topten.updateTopTen(name, score);
 		evaluationUpdater.updateTopTen(topten.getTopTenPlayers());
@@ -115,6 +119,7 @@ public class GamePanel extends JPanel {
 			setLayout(null);
 			setBackground(Color.DARK_GRAY);
 			
+			// Add baby on the panel
 			baby = new Baby(920, 430);
 			add(baby);
 			
@@ -171,6 +176,8 @@ public class GamePanel extends JPanel {
 				
 				for(int i = 0; i < gameObjects.size(); i++) {
 					GameObject targetObj = gameObjects.get(i);
+					
+					// If not target game object
 					if(!targetObj.getWord().equals(inWord)) {
 						continue;
 					}
@@ -240,6 +247,7 @@ public class GamePanel extends JPanel {
 			movingDelay = 45;
 		}
 		
+		// When difficulty is changed
 		if(beforeDifficulty != difficulty) {
 			noticeLabel.showNotice("Level " + difficulty + "!", 1500);
 			if(difficulty == 2) {
@@ -337,11 +345,12 @@ public class GamePanel extends JPanel {
 		@Override
 		public void run() {
 			int i = 1;
+			
 			while(true) {
 				GameObject newObject;
 				int y = getRandomY();
 				
-				if(i % 10 == 0) {
+				if(i % 10 == 0) { // Generate Toy at every 10 times
 					newObject = new Toy(wordSource.getWord(), 0, y);
 				}
 				else {
