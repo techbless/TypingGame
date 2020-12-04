@@ -51,7 +51,7 @@ public class GamePanel extends JPanel {
 		add(gameGroundPanel, BorderLayout.CENTER);
 		add(new InputPanel(), BorderLayout.SOUTH);
 		
-		noticeLabel.showNotice("Enter your name and start the game.", 4000, Color.YELLOW);
+		noticeLabel.showNotice("Enter your name and press the start button. (Dont Enter)", 10000, Color.YELLOW);
 	}
 	
 	
@@ -151,7 +151,9 @@ public class GamePanel extends JPanel {
 				@Override
 				public void keyPressed(KeyEvent e) {
 					char keyChar = e.getKeyChar();
-					evaluationUpdater.appendDummy(keyChar);
+					if(isPlaying) {
+						evaluationUpdater.appendDummy(keyChar);						
+					}
 				}
 				
 			});
