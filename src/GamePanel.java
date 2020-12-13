@@ -21,6 +21,7 @@ public class GamePanel extends JPanel {
 	private WordSource wordSource;
 	private Vector<GameObject> gameObjects;
 	private EvaluationUpdater evaluationUpdater;
+	private TopTen topten;
 	private Baby baby;
 	
 	private JTextField inputField;
@@ -45,6 +46,7 @@ public class GamePanel extends JPanel {
 		
 		gameObjects = new Vector<GameObject>(30);
 		wordSource = WordSource.getInstance();
+		topten = TopTen.getInstance();
 
 		setLayout(new BorderLayout());
 		
@@ -105,7 +107,6 @@ public class GamePanel extends JPanel {
 		noticeLabel.showNotice("Game End... Your score is " + score + ".", 5000);
 		
 		// Update Top10 board
-		TopTen topten = TopTen.getInstance();
 		topten.updateTopTen(name, score);
 		evaluationUpdater.updateTopTen(topten.getTopTenPlayers());
 		
